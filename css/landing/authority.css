@@ -1,0 +1,28 @@
+﻿.hg-authority-330 { padding:clamp(56px,8vh,100px) 0; }
+.hg-authority-331 { max-width:1140px; margin:0 auto; padding:0 clamp(20px,5vw,56px); }
+.hg-authority-332 { display:flex; flex-wrap:wrap; align-items:center; gap:clamp(32px,5vw,64px); justify-content:space-between; padding:clamp(34px,4vw,56px); background:#0e1425; border:1px solid rgba(255,255,255,.09); border-radius:20px; }
+.hg-authority-333 { flex:1 1 420px; min-width:280px; }
+.hg-authority-334 { display:flex; align-items:center; margin-bottom:22px; }
+.hg-authority-335 { width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #0e1425; }
+.hg-authority-336 { width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #0e1425;margin-left:-14px; }
+.hg-authority-337 { width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #0e1425;margin-left:-14px; }
+.hg-authority-338 { margin-left:16px; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#7f838d; }
+.hg-authority-339 { font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(1.7rem,3vw,2.6rem); line-height:1.08; letter-spacing:-.025em; margin:0 0 14px; text-wrap:balance; }
+.hg-authority-340 { color:var(--accent,#3a7dff); }
+.hg-authority-341 { font-size:1.08rem; line-height:1.55; color:#a4a8b2; margin:0; max-width:520px; }
+.hg-authority-342 { display:inline-flex; align-items:center; gap:10px; padding:17px 32px; background:var(--accent,#3a7dff); color:#fff; font-weight:700; font-size:16px; border-radius:12px; white-space:nowrap; box-shadow:0 14px 38px rgba(58,125,255,.34); }
+.hg-authority-hover-342:hover { background:#5b95ff; transform:translateY(-2px) }
+.hg-authority-343 { font-size:18px; }
+
+@media (max-width: 767px) {
+  .hg-authority-330 { padding-top: clamp(32px, 5vh, 48px); padding-bottom: clamp(32px, 5vh, 48px); }
+}
+@media (max-width: 599px) {
+  .hg-authority-332 { flex-direction: column; gap: clamp(24px, 5vw, 40px); }
+  .hg-authority-342 { white-space: normal; align-self: stretch; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 400px) {
+  .hg-authority-334 { flex-wrap: wrap; gap: 8px 0; }
+  .hg-authority-338 { margin-left: 12px; flex: 1 1 100%; }
+}

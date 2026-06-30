@@ -1,0 +1,590 @@
+/* ============================================================
+ * Consent UI — Honor Growth
+ * Prefixo hc- (honor consent) para evitar conflito com hg-
+ * Z-index: banner 9010, modal 9020 (acima do modal GHL em 9000)
+ * ============================================================ */
+
+/* ── Variáveis locais ──────────────────────────────────────────────────── */
+.hc-banner,
+.hc-modal-backdrop {
+  --hc-bg:          #0e1425;
+  --hc-bg-input:    #151c2d;
+  --hc-border:      rgba(255, 255, 255, .1);
+  --hc-border-alt:  rgba(255, 255, 255, .07);
+  --hc-text:        #f4f5f7;
+  --hc-text-muted:  #a4a8b2;
+  --hc-text-dim:    #6b6f7a;
+  --hc-accent:      #3a7dff;
+  --hc-accent-h:    #5b95ff;
+  --hc-radius:      16px;
+  --hc-radius-btn:  10px;
+  --hc-toggle-on:   #3a7dff;
+  --hc-toggle-off:  #2a2f3f;
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  color: var(--hc-text);
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* ── Body lock (modal aberto) ─────────────────────────────────────────── */
+.hc-body-lock {
+  overflow: hidden;
+}
+
+/* ── Utilitário ───────────────────────────────────────────────────────── */
+.hc-hidden {
+  display: none !important;
+}
+
+/* ====================================================================
+   BANNER
+   ==================================================================== */
+.hc-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9010;
+  background: var(--hc-bg);
+  border-top: 1px solid var(--hc-border);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, .55);
+  padding: 18px clamp(16px, 4vw, 32px);
+  animation: hc-slide-up .28s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+.hc-banner.hc-hidden {
+  animation: none;
+}
+
+@keyframes hc-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-banner { animation: none; }
+}
+
+.hc-banner-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hc-banner-text {
+  flex: 1 1 300px;
+  min-width: 220px;
+}
+
+.hc-banner-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--hc-text);
+  line-height: 1.3;
+}
+
+.hc-banner-desc {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--hc-text-muted);
+  line-height: 1.55;
+}
+
+.hc-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ====================================================================
+   BOTÕES
+   ==================================================================== */
+.hc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  border-radius: var(--hc-radius-btn);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.hc-btn:focus-visible {
+  outline: 2px solid var(--hc-accent);
+  outline-offset: 2px;
+}
+
+/* Principal — preenchido azul */
+.hc-btn-primary {
+  background: var(--hc-accent);
+  color: #fff;
+  border-color: var(--hc-accent);
+  box-shadow: 0 6px 18px rgba(58, 125, 255, .3);
+}
+.hc-btn-primary:hover {
+  background: var(--hc-accent-h);
+  border-color: var(--hc-accent-h);
+  box-shadow: 0 8px 22px rgba(58, 125, 255, .45);
+}
+
+/* Secundário — contorno */
+.hc-btn-secondary {
+  background: transparent;
+  color: var(--hc-text-muted);
+  border-color: var(--hc-border);
+}
+.hc-btn-secondary:hover {
+  color: var(--hc-text);
+  border-color: rgba(255, 255, 255, .25);
+  background: rgba(255, 255, 255, .05);
+}
+
+/* Ghost — sem borda */
+.hc-btn-ghost {
+  background: transparent;
+  color: var(--hc-text-dim);
+  border-color: transparent;
+  padding: 9px 14px;
+}
+.hc-btn-ghost:hover {
+  color: var(--hc-text-muted);
+  background: rgba(255, 255, 255, .05);
+}
+
+/* Guardar preferências */
+.hc-btn-save {
+  background: rgba(58, 125, 255, .12);
+  color: var(--hc-accent);
+  border-color: rgba(58, 125, 255, .3);
+}
+.hc-btn-save:hover {
+  background: rgba(58, 125, 255, .2);
+  border-color: rgba(58, 125, 255, .5);
+}
+
+/* ====================================================================
+   MODAL DE PREFERÊNCIAS
+   ==================================================================== */
+.hc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9020;
+  background: rgba(8, 12, 24, .82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .22s ease, visibility .22s ease;
+}
+
+.hc-modal-backdrop.hc-modal-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-modal-backdrop { transition: none; }
+}
+
+.hc-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 92dvh;
+  background: var(--hc-bg);
+  border: 1px solid var(--hc-border);
+  border-radius: var(--hc-radius);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, .75);
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  transform: translateY(12px);
+  transition: transform .22s cubic-bezier(.22, .61, .36, 1);
+}
+
+.hc-modal-backdrop.hc-modal-open .hc-modal-box {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-modal-box { transform: none; transition: none; }
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+.hc-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  flex-shrink: 0;
+}
+
+.hc-modal-heading {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+  letter-spacing: -.02em;
+  color: #fff;
+  margin: 0;
+}
+
+.hc-modal-close {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s;
+}
+.hc-modal-close:hover { background: rgba(255, 255, 255, .18); }
+.hc-modal-close:focus-visible {
+  outline: 2px solid var(--hc-accent);
+  outline-offset: 2px;
+}
+
+/* ── Body com scroll ────────────────────────────────────────────────── */
+.hc-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, .12) transparent;
+}
+.hc-modal-body::-webkit-scrollbar       { width: 4px; }
+.hc-modal-body::-webkit-scrollbar-track { background: transparent; }
+.hc-modal-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .12); border-radius: 4px; }
+
+.hc-modal-intro {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--hc-text-muted);
+  line-height: 1.6;
+}
+
+/* ── Categorias ─────────────────────────────────────────────────────── */
+.hc-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hc-category {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--hc-border-alt);
+}
+.hc-category:last-child {
+  border-bottom: none;
+}
+
+.hc-category-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hc-category-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--hc-text);
+  line-height: 1.3;
+}
+
+.hc-category-desc {
+  font-size: 12.5px;
+  color: var(--hc-text-muted);
+  line-height: 1.55;
+}
+
+/* ── Toggle ──────────────────────────────────────────────────────────── */
+.hc-toggle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.hc-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.hc-toggle-track {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--hc-toggle-off);
+  border: 1px solid rgba(255, 255, 255, .12);
+  transition: background .2s ease, border-color .2s ease;
+  flex-shrink: 0;
+}
+
+.hc-toggle-input:checked ~ .hc-toggle-track {
+  background: var(--hc-toggle-on);
+  border-color: var(--hc-toggle-on);
+}
+
+.hc-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+  transition: transform .2s ease;
+}
+
+.hc-toggle-input:checked ~ .hc-toggle-track .hc-toggle-thumb {
+  transform: translateX(20px);
+}
+
+.hc-toggle-input:disabled ~ .hc-toggle-track {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.hc-toggle-wrap:has(.hc-toggle-input:disabled) {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Foco visível no toggle via input */
+.hc-toggle-input:focus-visible ~ .hc-toggle-track {
+  outline: 2px solid var(--hc-accent);
+  outline-offset: 2px;
+}
+
+/* Estado textual */
+.hc-toggle-state {
+  font-size: 10.5px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .06em;
+  color: var(--hc-text-dim);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hc-toggle-input:checked ~ * ~ .hc-toggle-state {
+  color: var(--hc-accent);
+}
+
+/* ── Links legais ────────────────────────────────────────────────────── */
+.hc-modal-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hc-border-alt);
+}
+
+.hc-legal-link {
+  font-size: 12.5px;
+  color: var(--hc-text-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .15s;
+}
+.hc-legal-link:hover { color: var(--hc-text-muted); }
+.hc-legal-link:focus-visible {
+  outline: 2px solid var(--hc-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Footer do modal ─────────────────────────────────────────────────── */
+.hc-modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid var(--hc-border);
+  flex-shrink: 0;
+}
+
+/* ====================================================================
+   PLACEHOLDER DO FORMULÁRIO GHL
+   ==================================================================== */
+.hg-ghl-container {
+  width: 100%;
+}
+
+.hg-ghl-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: clamp(32px, 5vw, 52px) clamp(20px, 4vw, 40px);
+  background: #0e1425;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+  min-height: 300px;
+}
+
+.hg-ghl-placeholder-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(58, 125, 255, .1);
+  border: 1px solid rgba(58, 125, 255, .25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3a7dff;
+  flex-shrink: 0;
+}
+
+.hg-ghl-placeholder-title {
+  margin: 0;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #f4f5f7;
+  letter-spacing: -.01em;
+}
+
+.hg-ghl-placeholder-desc {
+  margin: 0;
+  font-size: 14px;
+  color: #a4a8b2;
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+.hg-ghl-placeholder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.hg-ghl-placeholder-btn {
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid rgba(58, 125, 255, .4);
+  border-radius: 10px;
+  color: #3a7dff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s, border-color .18s;
+}
+.hg-ghl-placeholder-btn-primary {
+  background: #3a7dff;
+  border-color: #3a7dff;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(58, 125, 255, .28);
+}
+.hg-ghl-placeholder-btn:hover {
+  background: rgba(58, 125, 255, .1);
+  border-color: rgba(58, 125, 255, .6);
+}
+.hg-ghl-placeholder-btn-primary:hover {
+  background: #5b95ff;
+  border-color: #5b95ff;
+}
+.hg-ghl-placeholder-btn:focus-visible {
+  outline: 2px solid #3a7dff;
+  outline-offset: 2px;
+}
+
+/* ====================================================================
+   LINK NO FOOTER
+   ==================================================================== */
+.hc-footer-prefs {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ====================================================================
+   RESPONSIVO
+   ==================================================================== */
+@media (max-width: 600px) {
+  .hc-banner-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hc-banner-actions {
+    flex-direction: column;
+  }
+
+  .hc-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hc-modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .hc-modal-footer .hc-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hc-category {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hc-modal-box {
+    max-height: 98dvh;
+  }
+}
