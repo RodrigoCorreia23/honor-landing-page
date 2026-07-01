@@ -21,7 +21,7 @@
 .hg-videos-263 { flex:1 1 300px; min-width:260px; padding:28px 26px; background:#101627; border:1px solid rgba(255,255,255,.08); border-radius:14px; display:flex; flex-direction:column; }
 .hg-videos-264 { font-size:1.05rem; line-height:1.55; color:#dfe1e6; margin:0 0 22px; flex:1; }
 .hg-videos-265 { display:flex; align-items:center; gap:12px; }
-.hg-videos-266 { width:44px; height:44px; border-radius:50%; object-fit:cover; }
+.hg-videos-266 { width:44px; height:44px; border-radius:50%; object-fit:contain; background:#fff; padding:6px; box-sizing:border-box; }
 .hg-videos-267 { font-size:14.5px; font-weight:600; }
 .hg-videos-268 { font-size:12.5px; color:#8a8f99; }
 .hg-videos-269 { flex:1 1 300px; min-width:260px; padding:28px 26px; background:#101627; border:1px solid rgba(255,255,255,.08); border-radius:14px; display:flex; flex-direction:column; }

@@ -9,7 +9,8 @@
 .hg-hero-034 { font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:#cdd0d8; }
 .hg-hero-035 { font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(2.6rem,6.2vw,5.4rem); line-height:1.0; letter-spacing:-.03em; margin:0 0 26px; text-wrap:balance; }
 .hg-hero-036 { color:var(--accent,#3a7dff); }
-.hg-hero-037 { font-size:clamp(1.08rem,1.4vw,1.35rem); line-height:1.6; color:#a4a8b2; max-width:660px; margin:0 auto 36px; }
+.hg-hero-037 { font-size:clamp(1rem,1.2vw,1.18rem); line-height:1.6; color:#a4a8b2; max-width:660px; margin:0 auto 36px; }
+.hg-hero-049 { color:var(--accent,#3a7dff); font-weight:700; }
 .hg-hero-038 { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
 .hg-hero-039 { display:inline-flex; align-items:center; gap:10px; padding:16px 30px; background:var(--accent,#3a7dff); color:#fff; font-weight:600; font-size:16px; border-radius:11px; box-shadow:0 14px 38px rgba(58,125,255,.34); }
 .hg-hero-hover-039:hover { background:#5b95ff; transform:translateY(-2px) }
@@ -17,9 +18,13 @@
 .hg-hero-041 { display:inline-flex; align-items:center; gap:10px; padding:16px 28px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); color:#f4f5f7; font-weight:600; font-size:16px; border-radius:11px; }
 .hg-hero-hover-041:hover { background:rgba(255,255,255,.09) }
 .hg-hero-042 { position:relative; max-width:1020px; margin:clamp(48px,6vw,72px) auto 0; }
-.hg-hero-043 { position:relative; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:0 40px 100px rgba(0,0,0,.6); }
+.hg-hero-043 { position:relative; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.1); box-shadow:none; }
 .hg-hero-044 { width:100%; aspect-ratio:16/9; object-fit:cover; cursor:pointer; }
 .hg-hero-045 { position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,15,30,.1) 40%, rgba(10,15,30,.7) 100%); }
+.hg-hero-046 { margin-top:20px; }
+.hg-hero-047 { margin:0 auto; max-width:920px; text-align:center; font-size:clamp(.92rem,1.05vw,1rem); line-height:1.8; color:#ffffff; text-wrap:pretty; }
+.hg-hero-047 strong { color:#f4f5f7; font-weight:700; }
+.hg-hero-048 { color:var(--accent,#3a7dff); font-weight:700; }
 .hg-hero-pills { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:32px; }
 .hg-hero-pill { font-weight:700; font-size:14px; color:#cdd0d8; }
 @media (max-width: 479px) {
